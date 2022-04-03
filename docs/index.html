@@ -355,25 +355,7 @@
     			<p>Adaptive sampling allows us to bias our amount of samples per spot based on whether we expect it to be within 95% confidence the right color already. We are basically calculating a confidence interval. We do this because some pixels hone in on the correct lighting and color more quickly than other spots. For example shadows might need to be sampled more than open areas with the uncertainty of how much light- and from where- the pixel is receiving. So, this would result in more red of a mapping. We do this by modifying the raytrace_pixel() function. We loop through the number of samples in sections of batches. After each batch iteration, we check if the confidence interval is less than or equal to the max tolerance multiplied by the mean, if it is, we’re within the confidence interval of 95% and break out of the loop. The way we calculate the confidence interval of 95% is with 1.96 * standard_deviation / (the number of samples). We also use s1 (which is the summation of the illumination), and s2 (which is the square of s1) to calculate the mean and standard deviation. The mean is s1 divided by the current amount of samples (casted as a double), and the standard deviation squared is (s2 - s1**2/n_currSampleAmount) divided by n_currSampleAmount-1 (casted to a double). These calculations basically help us determine whether or not we are in the confidence interval, and help us prioritize- which in turn helps us speed up the rendering with a higher quality.  </p>
 
 
-    		<h3 align="middle">CBspheres_lambertian.dae rendered with 2048 samples per pixel, 1 sample per light, and max ray depth 5. Also, 64 samples per batch and 0.05 max tolerance:</h3>
-
-			    <div align="middle">
-			      <table style="width=100%">
-			        <tr>
-			          <td>
-			            <img src="images/bunny.png" align="middle" width="400px" />
-			            <figcaption align="middle">result</figcaption>
-			          </td>
-			          <td>
-			            <img src="images/bunny_rate.png" align="middle" width="400px" />
-			            <figcaption align="middle">sample rate</figcaption>
-			          </td>
-			        </tr>
-			      </table>
-			    </div>
-
-			<p>The above image CBspheres_lambertian.dae seems to not have much change in sample rate, and similar convergence across. So, this picture is not an ideal picture to render for this example. However, I believe my code followed the spec pretty well, as seen in quicker tests with CBbunny.dae</p>
-
+    		<h3 align="middle">CBbunny.dae rendered with 2048 samples per pixel, 1 sample per light, and max ray depth 5. Also, 64 samples per batch and 0.05 max tolerance:</h3>
 
 			    <div align="middle">
 			      <table style="width=100%">
